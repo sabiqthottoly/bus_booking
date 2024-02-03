@@ -1,25 +1,20 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const adminRoutes = require('./routes/adminRoutes');
-const userRoutes = require('./routes/userRoutes');
-const db = require('../db/connection');
+const connectDB = require('./db/connection');
+const routes = require('./routes/ticketRoutes');
 
 const app = express();
-const port = process.env.PORT || 8081;
+const PORT = process.env.PORT || 3000;
 
-// Middleware for parsing JSON requests
 app.use(bodyParser.json());
 
-// Use routes
-app.use('/api/admin', adminRoutes);
-app.use('/api/user', userRoutes);
+// Connect to MongoDB
+connectDB();
 
-// Handle 404 (Not Found) errors
-app.use((req, res) => {
-  res.status(404).json({ message: 'Not Found' });
-});
+// Use the routes
+app.use('/api', routes);
 
-// Start the server
-app.listen(port, () => {
-  console.log(`Server is running on http://localhost:${port}`);
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+  
 });
