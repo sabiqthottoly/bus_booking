@@ -1,5 +1,4 @@
 const Joi = require('joi')
-const secretKey = 'demo_secret';
 const jwt = require('jsonwebtoken');
 
 function validateObj(obj, schema) {
