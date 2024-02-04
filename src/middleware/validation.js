@@ -1,3 +1,4 @@
+const config = require('../config');
 const Joi = require('joi')
 const jwt = require('jsonwebtoken');
 
@@ -50,7 +51,7 @@ function verifyToken(req, res, next) {
       return res.status(403).json({ message: 'Token is required.' });
     }
   
-    jwt.verify(token, secretKey, (err, user) => {
+    jwt.verify(token, config.jwtSecret, (err, user) => {
       if (err) {
         return res.status(401).json({ message: 'Invalid token.' });
       }
